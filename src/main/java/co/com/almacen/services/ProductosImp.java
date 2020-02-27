@@ -10,7 +10,7 @@ import co.com.almacen.repository.ProductosRepository;
 
 @Service
 
-public class ProductosImp implements IServiceProductos {
+public class ProductosImp implements IProductosService {
 
 	@Autowired
 

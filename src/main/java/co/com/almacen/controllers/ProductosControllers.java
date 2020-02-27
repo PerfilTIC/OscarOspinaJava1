@@ -13,23 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.almacen.models.Productos;
-import co.com.almacen.services.IServiceProductos;
+import co.com.almacen.services.IProductosService;
 
 @RestController
 @RequestMapping("/almacen")
-
 public class ProductosControllers {
 
 	@Autowired
-	IServiceProductos serv;
+	IProductosService serv;
 
 	@GetMapping
-	public List<Productos> Listar()
-
-	{
-
+	public List<Productos> Listar() {
 		return serv.listar();
-
 	}
 
 	@PostMapping("/save")

@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.com.almacen.models.Productos;
 
-public interface IServiceProductos   {
+public interface IProductosService   {
 	
 	List<Productos>listar();
 	Productos agregar(Productos p);
