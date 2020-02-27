@@ -12,44 +12,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.almacen.models.Productos;
-import co.com.almacen.services.IProductosService;
+import co.com.almacen.models.Fotos;
+
+import co.com.almacen.services.IFotosService;
 
 @RestController
-@RequestMapping("/almacen")
-public class ProductosControllers {
+@RequestMapping("/Fotos")
+public class FotosController {
 
 	@Autowired
-	IProductosService serv;
+	private IFotosService iFotosService;
 
 	@GetMapping
-	public List<Productos> Listar() {
-		return serv.listar();
+	public List<Fotos> Listar() {
+		return iFotosService.listar();
 	}
-
+	
 	@PostMapping("/grabar")
-	public Productos grabar(@RequestBody Productos p) {
+	public Fotos grabar(@RequestBody Fotos f) {
 
-		return serv.agregar(p);
+		return iFotosService.agregar(f);
 
 	}
-
+	
 	@DeleteMapping("borrar/{id}")
-	public void borrar(@PathVariable("id") long id)
+	public Fotos borrar(@PathVariable("id") long id)
 
 	{
-		serv.borrar(id);
+		return iFotosService.borrar(id);
 
 	}
-
+	
 	@PutMapping("/editar/{id}")
-	public Productos editar(@PathVariable long id, @RequestBody Productos p)
+	public Fotos editar(@PathVariable long id, @RequestBody Fotos f)
 
 	{
-		p.setIdProducto(id);
+		f.setIdFoto(id);
 
-		return serv.editar(p);
+		return iFotosService.editar(f);
 
 	}
+
 
 }

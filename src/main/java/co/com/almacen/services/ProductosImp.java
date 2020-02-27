@@ -35,15 +35,15 @@ public class ProductosImp implements IProductosService {
 	}
 
 	@Override
-	public Productos borrar(long id) {
+	public void borrar(Long id) {
 		// TODO Auto-generated method stub
-		return repo.deleteById(id);
+		repo.deleteById(id);
 	}
 
 	@Override
-	public Productos findById(long id) {
+	public Productos findById(Long id) {
 		// TODO Auto-generated method stub
-		return repo.findById(id);
+		return repo.findById(id).orElse(null);
 	}
 
 }

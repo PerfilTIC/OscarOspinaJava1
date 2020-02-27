@@ -9,11 +9,9 @@ import co.com.almacen.models.Productos;
 
 @Repository
 
-public interface ProductosRepository extends CrudRepository<Productos, ID> {
+public interface ProductosRepository extends CrudRepository<Productos, Long> {
 
 	
 
-	Productos findById(long id);
 
-	Productos deleteById(long id);
 }

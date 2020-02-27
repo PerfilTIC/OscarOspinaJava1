@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,16 +24,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l"),
-    @NamedQuery(name = "Login.findById", query = "SELECT l FROM Login l WHERE l.id = :id"),
+    @NamedQuery(name = "Login.findByIdLogin", query = "SELECT l FROM Login l WHERE l.idLogin = :idLogin"),
     @NamedQuery(name = "Login.findByUser", query = "SELECT l FROM Login l WHERE l.user = :user"),
     @NamedQuery(name = "Login.findByPassword", query = "SELECT l FROM Login l WHERE l.password = :password")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "id_login")
+    private Long idLogin;
     @Basic(optional = false)
     @Column(name = "user")
     private String user;
@@ -46,22 +43,22 @@ public class Login implements Serializable {
     public Login() {
     }
 
-    public Login(Long id) {
-        this.id = id;
+    public Login(Long idLogin) {
+        this.idLogin = idLogin;
     }
 
-    public Login(Long id, String user, String password) {
-        this.id = id;
+    public Login(Long idLogin, String user, String password) {
+        this.idLogin = idLogin;
         this.user = user;
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdLogin() {
+        return idLogin;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdLogin(Long idLogin) {
+        this.idLogin = idLogin;
     }
 
     public String getUser() {
@@ -83,7 +80,7 @@ public class Login implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idLogin != null ? idLogin.hashCode() : 0);
         return hash;
     }
 
@@ -94,7 +91,7 @@ public class Login implements Serializable {
             return false;
         }
         Login other = (Login) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idLogin == null && other.idLogin != null) || (this.idLogin != null && !this.idLogin.equals(other.idLogin))) {
             return false;
         }
         return true;
@@ -102,7 +99,7 @@ public class Login implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.almacen.models.Login[ id=" + id + " ]";
+        return "co.com.almacen.models.Login[ idLogin=" + idLogin + " ]";
     }
     
 }

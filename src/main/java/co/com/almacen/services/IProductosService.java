@@ -9,8 +9,8 @@ public interface IProductosService   {
 	List<Productos>listar();
 	Productos agregar(Productos p);
 	Productos editar(Productos p);
-	Productos borrar(long  id);
-	Productos findById(long id);
+	void borrar(Long  id);
+	Productos findById(Long id);
 	
 
 }

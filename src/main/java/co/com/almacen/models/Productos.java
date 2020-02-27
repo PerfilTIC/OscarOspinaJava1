@@ -6,16 +6,20 @@
 package co.com.almacen.models;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,62 +30,45 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Productos.findAll", query = "SELECT p FROM Productos p"),
-    @NamedQuery(name = "Productos.findById", query = "SELECT p FROM Productos p WHERE p.id = :id"),
+    @NamedQuery(name = "Productos.findByIdProducto", query = "SELECT p FROM Productos p WHERE p.idProducto = :idProducto"),
     @NamedQuery(name = "Productos.findByNombre", query = "SELECT p FROM Productos p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Productos.findByDescripcion", query = "SELECT p FROM Productos p WHERE p.descripcion = :descripcion"),
     @NamedQuery(name = "Productos.findByPeso", query = "SELECT p FROM Productos p WHERE p.peso = :peso"),
-    @NamedQuery(name = "Productos.findByPrecio", query = "SELECT p FROM Productos p WHERE p.precio = :precio"),
-    @NamedQuery(name = "Productos.findByCategoria", query = "SELECT p FROM Productos p WHERE p.categoria = :categoria"),
-    @NamedQuery(name = "Productos.findByIdcatpadre", query = "SELECT p FROM Productos p WHERE p.idcatpadre = :idcatpadre")})
+    @NamedQuery(name = "Productos.findByPrecio", query = "SELECT p FROM Productos p WHERE p.precio = :precio")})
 public class Productos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Long id;
-    @Basic(optional = false)
+    @Column(name = "id_producto")
+    private Long idProducto;
     @Column(name = "nombre")
     private String nombre;
-    @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "peso")
-    private int peso;
-    @Basic(optional = false)
+    private Double peso;
     @Column(name = "precio")
-    private int precio;
-    @Basic(optional = false)
-    @Column(name = "categoria")
-    private String categoria;
-    @Basic(optional = false)
-    @Column(name = "idcatpadre")
-    private int idcatpadre;
+    private Double precio;
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categoria idCategoria;
+    @OneToMany(mappedBy = "idProducto", fetch = FetchType.LAZY)
+    private List<Fotos> fotosList;
 
     public Productos() {
     }
 
-    public Productos(Long id) {
-        this.id = id;
+    public Productos(Long idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public Productos(Long id, String nombre, String descripcion, int peso, int precio, String categoria, int idcatpadre) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.peso = peso;
-        this.precio = precio;
-        this.categoria = categoria;
-        this.idcatpadre = idcatpadre;
+    public Long getIdProducto() {
+        return idProducto;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdProducto(Long idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombre() {
@@ -100,42 +87,43 @@ public class Productos implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
-    public int getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public Categoria getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setIdCategoria(Categoria idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
-    public int getIdcatpadre() {
-        return idcatpadre;
+    @XmlTransient
+    public List<Fotos> getFotosList() {
+        return fotosList;
     }
 
-    public void setIdcatpadre(int idcatpadre) {
-        this.idcatpadre = idcatpadre;
+    public void setFotosList(List<Fotos> fotosList) {
+        this.fotosList = fotosList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (idProducto != null ? idProducto.hashCode() : 0);
         return hash;
     }
 
@@ -146,7 +134,7 @@ public class Productos implements Serializable {
             return false;
         }
         Productos other = (Productos) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.idProducto == null && other.idProducto != null) || (this.idProducto != null && !this.idProducto.equals(other.idProducto))) {
             return false;
         }
         return true;
@@ -154,7 +142,7 @@ public class Productos implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.almacen.models.Productos[ id=" + id + " ]";
+        return "co.com.almacen.models.Productos[ idProducto=" + idProducto + " ]";
     }
     
 }
