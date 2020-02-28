@@ -11,7 +11,4 @@ import co.com.almacen.models.Productos;
 
 public interface ProductosRepository extends CrudRepository<Productos, Long> {
 
-	
-
-
 }

@@ -36,10 +36,10 @@ public class FotosController {
 	}
 	
 	@DeleteMapping("borrar/{id}")
-	public Fotos borrar(@PathVariable("id") long id)
+	public void borrar(@PathVariable("id") long id)
 
 	{
-		return iFotosService.borrar(id);
+		 iFotosService.borrar(id);
 
 	}
 	

@@ -7,17 +7,7 @@ package co.com.almacen.models;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,10 +18,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "categoria")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findByIdCategoria", query = "SELECT c FROM Categoria c WHERE c.idCategoria = :idCategoria"),
-    @NamedQuery(name = "Categoria.findByCategoria", query = "SELECT c FROM Categoria c WHERE c.categoria = :categoria")})
 public class Categoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,6 +28,10 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "categoria")
     private String categoria;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "imagen")
+    private byte[] imagen;
     @OneToMany(mappedBy = "idCategoria", fetch = FetchType.LAZY)
     private List<Productos> productosList;
 
@@ -80,6 +70,14 @@ public class Categoria implements Serializable {
 
     public void setProductosList(List<Productos> productosList) {
         this.productosList = productosList;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
     @Override

@@ -16,13 +16,13 @@ import co.com.almacen.models.Productos;
 import co.com.almacen.services.IProductosService;
 
 @RestController
-@RequestMapping("/almacen")
+@RequestMapping("/productos")
 public class ProductosControllers {
 
 	@Autowired
 	IProductosService serv;
 
-	@GetMapping
+	@GetMapping("/lista")
 	public List<Productos> Listar() {
 		return serv.listar();
 	}

@@ -33,15 +33,15 @@ public class FotosImp   implements IFotosService{
 	}
 
 	@Override
-	public Fotos borrar(long id) {
+	public void borrar(long id) {
 		// TODO Auto-generated method stub
-		return FotosRepository.deleteById(id);
+		 FotosRepository.deleteById(id);
 	}
 
 	@Override
 	public Fotos findById(long id) {
 		// TODO Auto-generated method stub
-		return FotosRepository.findById(id);
+		return FotosRepository.findById(id).orElse(null);
 	}
 
 

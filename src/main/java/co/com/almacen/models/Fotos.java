@@ -6,17 +6,7 @@
 package co.com.almacen.models;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -26,12 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "fotos")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Fotos.findAll", query = "SELECT f FROM Fotos f"),
-    @NamedQuery(name = "Fotos.findByIdFoto", query = "SELECT f FROM Fotos f WHERE f.idFoto = :idFoto")})
 public class Fotos implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_foto")
     private Long idFoto;
@@ -39,9 +27,8 @@ public class Fotos implements Serializable {
     @Lob
     @Column(name = "imagen")
     private byte[] imagen;
-    @JoinColumn(name = "id_producto", referencedColumnName = "id_producto")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Productos idProducto;
+    @Column(name = "id_producto")
+    private Long idProducto;
 
     public Fotos() {
     }
@@ -71,11 +58,11 @@ public class Fotos implements Serializable {
         this.imagen = imagen;
     }
 
-    public Productos getIdProducto() {
+    public Long getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(Productos idProducto) {
+    public void setIdProducto(Long idProducto) {
         this.idProducto = idProducto;
     }
 

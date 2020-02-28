@@ -14,7 +14,7 @@ public interface IFotosService  {
 	List<Fotos>listar();
 	Fotos agregar(Fotos f);
 	Fotos editar(Fotos p);
-	Fotos borrar(long  id);
+	void borrar(long  id);
 	Fotos findById(long id);
 	
 
